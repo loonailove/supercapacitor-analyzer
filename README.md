@@ -43,8 +43,6 @@ $$ESR = \frac{V_{\text{gol}} - V_{\text{sarcina}}}{I_{\text{init}}}$$
 ### 2. Numerical Integration for Capacitance
 Because constant resistance cannot be assumed under active load profiling, charge ($Q$) is evaluated using trapezoidal integration slices:
 
-$$Q = \sum_{i=\text{idx\_high}}^{\text{idx\_low}-1} \frac{I_i + I_{i+1}}{2} \cdot \Delta t_i$$
-
 $$C = \frac{Q}{\Delta V} = \frac{\int_{t_{\text{start}}}^{t_{\text{stop}}} I_{\text{dis}}(t) dt}{V(t_{\text{start}}) - V(t_{\text{stop}})}$$
 
 ### 3. State of Health (SoH) Optimization
