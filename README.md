@@ -2,16 +2,19 @@
 
 
 ### 🛠️ Hardware Setup Configuration
-> **Figure 1**: Asynchronous profiling connection circuit featuring the ESP32 development board and direct-drive logic-level switching line.
-![Hardware Setup](images/image4.png)
-![Hardware Setup](images/image5.png)
+> Asynchronous profiling connection circuit featuring the ESP32 development board and direct-drive logic-level switching line.
+<p align="center">
+  <img src="images/image4.png" width="45%" alt="Hardware Setup Overview">   
+  <img src="images/image5.png" width="45%" alt="Hardware Setup Close-up">
+</p>
 
 ---
 
-### 🧠 Real-Time TensorFlow.js Dashboard
-> **Figure 2**: Live telemetry preview capturing analytical calculations, ideal curves, and component health scaling modules.
-![Dashboard Preview](images/image3.png)
-
+### 📊 Real-Time Dashboard
+> Live telemetry preview capturing analytical calculations, ideal curves, and component health scaling modules.
+<p align="center">
+  <img src="images/image3.png" width="65%" alt="Dashboard Preview">
+</p>
 
 An automated, hardware-software integrated testing system designed to characterize the health and dynamic behaviors of capacitors and supercapacitors. By performing an active discharge test controlled via an **ESP32** microcontroller, the system captures high-resolution real-time voltage and current curves.
 The accompanying dashboard utilizes **TensorFlow.js** to compute structural deviations from ideal models, providing a precise **State of Health (SoH)** estimation directly at the edge.
