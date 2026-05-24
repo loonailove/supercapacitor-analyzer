@@ -1,11 +1,24 @@
-# Embedded Supercapacitor & Capacitor Analyzer
+# 💻⚡️ Supercapacitor & Capacitor Analyzer using Edge AI
+
+
+### 🛠️ Hardware Setup Configuration
+> **Figure 1**: Asynchronous profiling connection circuit featuring the ESP32 development board and direct-drive logic-level switching line.
+![Hardware Setup](images/image4.png)
+![Hardware Setup](images/image5.png)
+
+---
+
+### 🧠 Real-Time TensorFlow.js Dashboard
+> **Figure 2**: Live telemetry preview capturing analytical calculations, ideal curves, and component health scaling modules.
+![Dashboard Preview](images/image3.png)
+
 
 An automated, hardware-software integrated testing system designed to characterize the health and dynamic behaviors of capacitors and supercapacitors. By performing an active discharge test controlled via an **ESP32** microcontroller, the system captures high-resolution real-time voltage and current curves.
 The accompanying dashboard utilizes **TensorFlow.js** to compute structural deviations from ideal models, providing a precise **State of Health (SoH)** estimation directly at the edge.
 
 ---
 
-## Key Features
+## Key Features ⚙️
 
 * **Active Discharge Testing**: Programmatic control of an N-Channel Logic-Level MOSFET (`IRLZ44N`) to execute fast, clean discharge cycles.
 * **High-Resolution Real-Time Telemetry**: Real-time acquisition of voltage, current, and power consumption metrics using an `INA219` sensor via an optimized 400 kHz $I^2C$ bus speed (`Wire.setClock(400000)`).
@@ -72,3 +85,8 @@ The hardware pipeline utilizes an efficient minimalist component layout optimize
 2. Click the `🔌 Conectează ESP32` button in the dashboard header.
 3. Select the matching operational COM port from your system's device prompts.
 4. Make sure your target supercapacitor is charged, and trigger a cycle using `🚀 PORNEȘTE TEST DESCĂRCARE`.
+
+---
+## Aknowledgements
+
+This work was developed for SCSS (Sesiunea de Comunicări Științifice Studențești) 2026, incorporating AI‑based tools to support the prototyping process.
