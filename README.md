@@ -13,7 +13,7 @@
 ### 📊 Real-Time Dashboard
 > Live telemetry preview capturing analytical calculations, ideal curves, and component health scaling modules.
 <p align="center">
-  <img src="images/image3.png" width="65%" alt="Dashboard Preview">
+  <img src="images/image2.png" width="65%" alt="Dashboard Preview">
 </p>
 
 An automated, hardware-software integrated testing system designed to characterize the health and dynamic behaviors of capacitors and supercapacitors. By performing an active discharge test controlled via an **ESP32** microcontroller, the system captures high-resolution real-time voltage and current curves.
