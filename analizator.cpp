@@ -2,14 +2,14 @@
 #include <Adafruit_INA219.h>
  
 // ==================== CONFIGURARE HARDWARE ====================
-#define GATE_PIN 25             // Control direct IRLZ44N
+#define GATE_PIN 25             // control direct IRLZ44N
 #define SAMPLE_INTERVAL_US 5000 // 5ms între eșantioane 
-#define MAX_SAMPLES 300         // Maximul de puncte pentru grafic
+#define MAX_SAMPLES 300         // maximul de puncte pentru grafic
  
 // ==================== OBIECTE GLOBALE ====================
 Adafruit_INA219 ina219;
  
-// ==================== VARIABILE MĂSURARE ====================
+// ==================== VARIABILE MASURARE ====================
 float voltages[MAX_SAMPLES];
 float currents[MAX_SAMPLES];
 unsigned long timestamps[MAX_SAMPLES]; 
@@ -43,12 +43,11 @@ float calculateCapacitanceIntegral() {
  
   if (idx_high != -1 && idx_low != -1) {
     float delta_V = voltages[idx_high] - voltages[idx_low];
-    float total_charge_mAs = 0; // Sarcina în miliAmperi-secundă
+    float total_charge_mAs = 0;  // miliAmperi-sec
  
-    // Adunăm (integrăm) cantitatea de curent din fiecare interval de timp
     for (int i = idx_high; i < idx_low; i++) {
       float dt_sec = (timestamps[i+1] - timestamps[i]) / 1000000.0;
-      float avg_current_step = (currents[i] + currents[i+1]) / 2.0; // Media trapezoidală
+      float avg_current_step = (currents[i] + currents[i+1]) / 2.0; // media trapezoidala
       total_charge_mAs += (avg_current_step * dt_sec);
     }
  
@@ -69,7 +68,7 @@ void sendTelemetry(String status, float voltage, float current, float capacitanc
   Serial.println("}");
 }
  
-// ==================== RUTINA DE DESCĂRCARE ====================
+// ==================== RUTINA DE DESCARCARE ====================
 void runDischargeTest() {
   if (isTesting) return;
   isTesting = true;
@@ -84,7 +83,7 @@ void runDischargeTest() {
   sendTelemetry("TESTING", V_start, ina219.getCurrent_mA(), 0);
   sampleCount = 0;
  
-  // Deschidem tranzistorul la maxim!
+  // deschidem tranz la maxim
   digitalWrite(GATE_PIN, HIGH);
  
   unsigned long startTime = micros();
@@ -109,7 +108,7 @@ void runDischargeTest() {
     yield();
   }
  
-  // Oprim descărcarea
+  // oprim descarcarea
   digitalWrite(GATE_PIN, LOW);
  
   calculatedCapacitance = calculateCapacitanceIntegral();
@@ -135,10 +134,10 @@ void runDischargeTest() {
 void setup() {
   Serial.begin(115200);
   Wire.begin();
-  Wire.setClock(400000); // Mărim viteza magistralei I2C
+  Wire.setClock(400000);
  
   pinMode(GATE_PIN, OUTPUT);
-  digitalWrite(GATE_PIN, LOW); // Tranzistorul pornește blocat
+  digitalWrite(GATE_PIN, LOW);
  
   if (!ina219.begin()) {
     Serial.println("{\"status\":\"ERROR_INA219\"}");
@@ -161,7 +160,6 @@ void loop() {
       float volt = ina219.getBusVoltage_V();
       float curr = ina219.getCurrent_mA();
  
-      // Am scos filtrul, va trimite date constant spre dashboard
       sendTelemetry("IDLE", volt, curr, calculatedCapacitance);
       lastTelemetryTime = currentMillis;
     }

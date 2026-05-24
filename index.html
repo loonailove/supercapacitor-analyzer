@@ -202,7 +202,6 @@
         }
     }
  
-    // Funcția care generează curba ideală și rulează inferența TensorFlow
     async function updateGraphAndRunAI() {
         if (curvePoints.length === 0) return;
  
@@ -220,20 +219,17 @@
             let t_sec = t_ms / 1000.0;
             return V0 * Math.exp(-t_sec / tau); 
         });
- 
-        // Actualizăm graficul vizual
+
         myChart.data.labels = times_ms.map(t => parseFloat(t).toFixed(1));
         myChart.data.datasets[0].data = volts_actual;
         myChart.data.datasets[1].data = volts_ideal;
         myChart.update();
  
         // -------------------------------------------------------------
-        // BLOC TINYML: Analiză cu TensorFlow.js
+        // Analiza cu TensorFlow.js
         // -------------------------------------------------------------
         document.getElementById('aiPanel').style.display = 'block';
  
-        // 1. Deducem Valoarea Nominală (Filtru Heuristic)
-        // Dacă a calculat 2180 uF, probabil e un condensator de 2200 uF.
         let nomVal = "Necunoscută";
         if (calculatedCap > 800 && calculatedCap < 1200) nomVal = "1000 µF";
         else if (calculatedCap > 2000 && calculatedCap < 2500) nomVal = "2200 µF";
@@ -241,18 +237,13 @@
         else nomVal = `Aprox. ${Math.round(calculatedCap/100)*100} µF`;
         document.getElementById('nomCap').innerText = nomVal;
  
-        // 2. Creăm Tensori pentru a rula funcțiile de pierdere (Loss Functions)
         const t_actual = tf.tensor1d(volts_actual);
         const t_ideal = tf.tensor1d(volts_ideal);
  
-        // 3. Calculăm MSE (Mean Squared Error) între curba ideală și realitate
-        // Asta ne spune cât de "curată" este descărcarea.
         const mseTensor = tf.losses.meanSquaredError(t_ideal, t_actual);
-        const mseValue = mseTensor.dataSync()[0]; // Extragem valoarea din tensor
+        const mseValue = mseTensor.dataSync()[0]; // extragem valoarea din tensor
         document.getElementById('mseVal').innerText = mseValue.toFixed(4);
  
-       // 4. Model simplificat de Scoring (0-100%) - Adaptat pentru Breadboard
-        // Reducem penalizarea. Un MSE de 0.5 este perfect normal pentru contacte fizice.
         let score = 100 - (mseValue * 45); 
         if (score > 100) score = 100;
         if (score < 0) score = 0;
@@ -261,16 +252,16 @@
         let hText = "";
  
         if (score >= 90) {
-            barColor = "#10b981"; // Verde
+            barColor = "#10b981"; // verde
             hText = "FOARTE BUN (Parametri Excelenți)";
         } else if (score >= 70) {
-            barColor = "#84cc16"; // Verde-Gălbui
+            barColor = "#84cc16"; // verde-galben
             hText = "BUN (Componentă Sănătoasă)";
         } else if (score >= 40) {
-            barColor = "#f97316"; // Portocaliu
+            barColor = "#f97316"; // portocaliu
             hText = "UZAT (ESR Crescut / Dielectric Uscat)";
         } else {
-            barColor = "#ef4444"; // Roșu
+            barColor = "#ef4444"; // rosu
             hText = "DEGRADAT (Nu folosi în circuite sensibile)";
         }
  
@@ -281,7 +272,6 @@
         healthFill.style.width = score + "%";
         healthFill.style.backgroundColor = barColor;
  
-        // Eliberăm memoria pe GPU/CPU blocată de tensori
         t_actual.dispose();
         t_ideal.dispose();
         mseTensor.dispose();
