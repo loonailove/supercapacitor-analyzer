@@ -1,4 +1,4 @@
-# AI Supercapacitor & Capacitor Analyzer
+# Supercapacitor & Capacitor Analyzer
 
 
 ### 🛠️ Hardware Setup Configuration
