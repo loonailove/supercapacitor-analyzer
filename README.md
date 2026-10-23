@@ -1,4 +1,4 @@
-# 💻⚡️ Edge AI Supercapacitor & Capacitor Analyzer
+# AI Supercapacitor & Capacitor Analyzer
 
 
 ### 🛠️ Hardware Setup Configuration
